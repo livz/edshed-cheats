@@ -38,6 +38,7 @@ Each script injects a floating control panel into the page and polls for the gam
 
 **SPA resilience:** The script continuously watches for the game component rather than polling once. If you navigate away and back, it detects the stale scene reference, resets, and re-attaches, reapplying any cheats that were active.
 
+![Screenshot](images/beesieged.png)
 ---
 
 ## Adding a new script
