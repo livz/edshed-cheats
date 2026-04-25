@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         🐝 EdShed Beesieged Cheats
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  Infinite pollen, infinite health, unlock all units
 // @match        https://play.edshed.com/*
 // @grant        none
@@ -147,8 +147,6 @@
       flex-direction: column;
       gap: 10px;
     }
-    #sc-panel.sc-collapsed #sc-body,
-    #sc-panel.sc-collapsed #sc-pin-screen { display: none; }
 
     .sc-row {
       display: flex;
@@ -270,8 +268,7 @@
       </div>
 
       <!-- Controls (hidden until unlocked) -->
-      <div id="sc-body">
-
+      <div id="sc-body" style="display:none">
         <div class="sc-row">
           <span class="sc-label">🍯 Infinite Pollen</span>
           <span class="sc-live" id="sc-val-money">—</span>
@@ -400,8 +397,21 @@
 
     // ── Minimise ──
     minBtn.addEventListener('click', () => {
-      const c = panel.classList.toggle('sc-collapsed');
-      minBtn.textContent = c ? '+' : '−';
+    const collapsed = panel.classList.toggle('sc-collapsed');
+      if (collapsed) {
+        pinScreen.style.display = 'none';
+        body.style.display = 'none';
+      } else {
+        if (locked) {
+          pinScreen.style.display = 'flex';
+          body.style.display = 'none';
+        } else {
+          pinScreen.style.display = 'none';
+          body.style.display = 'flex';
+        }
+      }
+
+      minBtn.textContent = collapsed ? '+' : '−';
     });
 
     // ── Drag ──
@@ -494,7 +504,8 @@
     let sessionActive = false;
 
     setInterval(() => {
-      const el = document.querySelector('[data-v-51d765c2]');
+      const el = [...document.querySelectorAll('div')]
+        .find(e => e.__vue__?.scene?.money !== undefined);
 
       // If we had a session, check it's still alive
       if (sessionActive) {
