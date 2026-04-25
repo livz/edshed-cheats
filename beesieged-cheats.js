@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         🐝 EdShed Beesieged Cheats
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Infinite pollen, infinite health, unlock all units
 // @match        https://play.edshed.com/*
 // @grant        none
@@ -270,7 +270,7 @@
       </div>
 
       <!-- Controls (hidden until unlocked) -->
-      <div id="sc-body" style="display:none">
+      <div id="sc-body">
 
         <div class="sc-row">
           <span class="sc-label">🍯 Infinite Pollen</span>
